@@ -51,9 +51,9 @@ export default function ReviewForm() {
       <div className="form-card">
         <div className="form-header">
           <h1 className="form-title">
-            <span className="gradient-text">Sentiment Analyzer</span>
+            <span className="gradient-text">Sentomment</span>
           </h1>
-          <p className="form-subtitle">Discover the emotion behind your words</p>
+          <p className="form-subtitle">Where sentiment meets comment - discover the emotion behind your words</p>
         </div>
         
         <form onSubmit={handleSubmit} className="review-form">
@@ -63,7 +63,7 @@ export default function ReviewForm() {
               onChange={(e) => setReview(e.target.value)}
               className="review-textarea"
               rows="5"
-              placeholder="Share your thoughts, feelings, or review here..."
+              placeholder="Share your thoughts, comments, or reviews here..."
               disabled={loading}
             />
             <div className="char-count">{review.length} characters</div>
@@ -82,7 +82,7 @@ export default function ReviewForm() {
             ) : (
               <>
                 <span className="button-icon">✨</span>
-                Analyze Sentiment
+                Analyze My Comment
               </>
             )}
           </button>
@@ -118,7 +118,7 @@ export default function ReviewForm() {
             </div>
             
             <div className="review-text">
-              <p className="review-label">Your review:</p>
+              <p className="review-label">Your comment:</p>
               <p className="review-content">"{result.reviewText}"</p>
             </div>
           </div>
