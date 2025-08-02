@@ -4,6 +4,10 @@ import re
 
 app = Flask(__name__)
 
+@app.route('/')
+def health_check():
+    return jsonify({'message': 'Sentomment Sentiment Service is running!'})
+
 # Custom word lists for better sentiment detection
 STRONG_NEGATIVE_WORDS = ['suck', 'sucks', 'hate', 'horrible', 'terrible', 'awful', 
                          'disgusting', 'worst', 'crap', 'garbage', 'trash', 'useless']
@@ -53,4 +57,6 @@ def analyze_sentiment():
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    import os
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port)

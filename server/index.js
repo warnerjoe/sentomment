@@ -11,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Health check route
+app.get('/', (req, res) => {
+  res.json({ message: 'Sentomment Backend API is running!' });
+});
+
 // Routes
 app.use('/reviews', reviewRoutes);
 
@@ -20,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .catch((err) => console.log('MongoDB connection error: ', err));
 
 // Start server
-const port = 5000;
-app.listen(port, () => {
+const port = process.env.PORT || 5000;
+app.listen(port, '0.0.0.0', () => {
   console.log(`Backend server running on port ${port}`);
 });
