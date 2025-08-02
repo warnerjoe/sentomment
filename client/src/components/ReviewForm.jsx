@@ -53,7 +53,7 @@ export default function ReviewForm() {
           <h1 className="form-title">
             <span className="gradient-text">Sentomment</span>
           </h1>
-          <p className="form-subtitle">Where sentiment meets comment - discover the emotion behind your words</p>
+          <p className="form-subtitle">Analyze the sentiment and emotion in your text</p>
         </div>
         
         <form onSubmit={handleSubmit} className="review-form">
