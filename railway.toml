@@ -1,0 +1,35 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "echo 'This is a monorepo. Deploy individual services.'"
+
+[[services]]
+name = "sentiment-service"
+source = "sentiment-service"
+
+[services.sentiment-service.build]
+builder = "nixpacks"
+
+[services.sentiment-service.deploy]
+startCommand = "python app.py"
+
+[[services]]
+name = "backend"
+source = "server"
+
+[services.backend.build]
+builder = "nixpacks"
+
+[services.backend.deploy]
+startCommand = "node index.js"
+
+[[services]]
+name = "frontend"
+source = "client"
+
+[services.frontend.build]
+builder = "nixpacks"
+
+[services.frontend.deploy]
+startCommand = "npm run preview"

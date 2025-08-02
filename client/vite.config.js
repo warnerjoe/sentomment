@@ -5,12 +5,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    host: '0.0.0.0',
     proxy: {
       '/reviews': 'http://localhost:5000', // Proxy API requests to the backend
-    },
-    preview: {
-      port: 3000
     }
+  },
+  preview: {
+    port: 3000,
+    host: '0.0.0.0'
   },
   build: {
     // Custom output directory
