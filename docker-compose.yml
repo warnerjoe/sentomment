@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build: ./server
+    container_name: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+      - sentiment-service
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - SENTIMENT_API_URL=${SENTIMENT_API_URL}
+    networks:
+      - app-network
+
+  sentiment-service:
+    build: ./sentiment-service
+    container_name: sentiment-service
+    ports:
+      - "5001:5001"
+    networks:
+      - app-network
+
+  client:
+    build: ./client
+    container_name: client
+    ports:
+      - "3000:4173"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: sentomment.xyz
+      http:
+        paths:
+          - path: /assets
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-cluster-ip-service
+                port:
+                  number: 80
+          - path: /api/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 5000
+          - path: /sentiment/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sentiment-cluster-ip-service
+                port:
+                  number: 8080

@@ -1,0 +1,35 @@
+services:
+  # Python Sentiment Service
+  - type: web
+    name: sentiment-service
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    rootDir: sentiment-service
+    envVars:
+      - key: PORT
+        value: 5001
+
+  # Node.js Backend
+  - type: web
+    name: sentiment-backend
+    env: node
+    buildCommand: "npm install"
+    startCommand: "node index.js"
+    rootDir: server
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: SENTIMENT_API_URL
+        value: https://sentiment-service.onrender.com/analyze
+
+  # React Frontend
+  - type: web
+    name: sentiment-frontend
+    env: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: ./dist
+    rootDir: client
+    envVars:
+      - key: VITE_API_URL
+        value: https://sentiment-backend.onrender.com
