@@ -16,7 +16,7 @@ export default function ReviewForm() {
     setError(null);
     
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://backend-production-839d.up.railway.app';
       const response = await axios.post(`${apiUrl}/reviews/submit`, {
         reviewText: review
       });
@@ -24,7 +24,9 @@ export default function ReviewForm() {
       setReview('');
     } catch (error) {
       console.error('Error submitting review', error);
-      setError('Failed to analyze review. Please try again.');
+      console.error('API URL:', apiUrl);
+      console.error('Full error:', error.response || error.message);
+      setError(`Failed to analyze review. ${error.response?.data?.error || error.message || 'Please try again.'}`);
     } finally {
       setLoading(false);
     }
